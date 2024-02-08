@@ -1,1 +1,90 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.4">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2024-02-07T16:43:41-08:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Site Title</title><subtitle>An amazing website.</subtitle><author><name>Your Name</name></author></feed>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.4">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2024-02-07T20:35:25-08:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Are You with Me Now?</title><subtitle>Data Science thoughts</subtitle><author><name>John Dwyer</name></author><entry><title type="html">What’s the deal with pandas 3.0?</title><link href="http://localhost:4000/blog/pandas-3.0/" rel="alternate" type="text/html" title="What’s the deal with pandas 3.0?" /><published>2023-02-07T00:00:00-08:00</published><updated>2023-02-07T00:00:00-08:00</updated><id>http://localhost:4000/blog/pandas-3.0</id><content type="html" xml:base="http://localhost:4000/blog/pandas-3.0/"><![CDATA[<p>Pandas is a core tool for data practitioners. However, when pandas 3.0 is released (currently planned for April 2024), many data science workflows will break and need to be updated. Change is hard, but read on to see that this is ultimately a good thing for pandas users.</p>
+
+<p>First, let’s review some existing behavior in pandas. Imagine that you have a dataframe that looks like:</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="n">pd</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="p">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s">"id"</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="s">"color"</span><span class="p">:</span> <span class="p">[</span><span class="s">"red"</span><span class="p">,</span> <span class="s">"green"</span><span class="p">,</span> <span class="s">"blue"</span><span class="p">]})</span>
+<span class="n">df</span>
+<span class="c1">#    id  color
+# 0   1    red
+# 1   2  green
+# 2   3   blue
+</span></code></pre></div></div>
+
+<p>Now let’s reference one column and update one of its values:</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">colors</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s">"color"</span><span class="p">]</span>
+<span class="n">colors</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="s">"white"</span>
+<span class="n">df</span>  <span class="c1"># What happens to df here?
+</span></code></pre></div></div>
+
+<p>Astute pandas users will recognize that this will update not only <code class="language-plaintext highlighter-rouge">colors</code>, but also <code class="language-plaintext highlighter-rouge">df</code> and print out:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">#    id  color
+# 0   1  white  # &lt;-- This may be unexpected
+# 1   2  green
+# 2   3   blue
+</span></code></pre></div></div>
+
+<p>The reason is that <code class="language-plaintext highlighter-rouge">colors</code> is a view of the original dataframe, meaning that it is still referencing the original <code class="language-plaintext highlighter-rouge">df</code>, so any changes to the view will update the underlying dataframe too.</p>
+
+<p>However, what will get printed in the following example?</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">colors</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s">"color"</span><span class="p">]</span>
+<span class="n">colors</span> <span class="o">=</span> <span class="n">colors</span> <span class="o">+</span> <span class="s">"ish"</span>  <span class="c1"># redish, greenish, blueish
+</span><span class="n">df</span>  <span class="c1"># What happens to df here?
+</span></code></pre></div></div>
+
+<p>In this case, we will get the original RGB dataframe back:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">#    id  color
+# 0   1    red
+# 1   2  green
+# 2   3   blue
+</span></code></pre></div></div>
+
+<p>This is because the <code class="language-plaintext highlighter-rouge">+ "ish"</code> returns a copy instead of a view. When a copy is generated and modified, the original dataframe does not get touched.</p>
+
+<h2 id="the-dreaded-settingwithcopywarning">The dreaded <code class="language-plaintext highlighter-rouge">SettingWithCopyWarning</code></h2>
+
+<p>In the first scenario pandas spits out a cryptic message: <code class="language-plaintext highlighter-rouge">SettingWithCopyWarning: A value is trying to be set on a copy of a slice from a DataFrame.</code> This warning has always filled me with a sense of unease that I was doing something wrong, but I didn’t know what exactly.</p>
+
+<p>It turns out that I’m not alone. Pandas has a rather complicated set of rules for determining whether operations return a copy or a view, and sometimes pandas itself is not sure, which is why the warning is sometimes mysterious. Moreover, in the case of chained indexing, assignment can behave in <a href="https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#why-does-assignment-fail-when-using-chained-indexing">unexpected ways</a>. If pandas itself doesn’t know and can get things wrongs, how are we humble data analysts, scientists, and engineers expected to keep track, especially for large projects.</p>
+
+<h2 id="copy-on-write">Copy-on-Write</h2>
+<p>The solution that the pandas development team came up with is called copy-on-write. Copy-on-write means that whenever a dataframe (or series) is derived from another it will behave as a copy. Any changes to derived dataframes will never affect the original dataframe. This behavior is much more predictable, and will prevent a lot of unintended side effects for pandas code. But there is no free lunch. Pandas is making two breaking changes to make this work.</p>
+
+<h3 id="1-chained-assignment">1. Chained Assignment</h3>
+
+<p>In pandas 3.0, chained assignment will always fail. Chained assignment is when you update an object through multiple indexing operations in serial:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">df</span><span class="p">[</span><span class="s">'color'</span><span class="p">][</span><span class="n">df</span><span class="p">[</span><span class="s">'id'</span><span class="p">]</span> <span class="o">==</span> <span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="s">"white"</span>
+<span class="n">df</span>
+<span class="c1">#    id  color
+# 0   1    red
+# 1   2  white
+# 2   3   blue
+</span></code></pre></div></div>
+
+<p>Today pandas raises the aforementioned <code class="language-plaintext highlighter-rouge">SettingWithCopyWarning</code>, but starting with pandas 3.0, this will straight up fail every time. Instead users should use <code class="language-plaintext highlighter-rouge">.loc</code> instead: <code class="language-plaintext highlighter-rouge">df.loc[df["id"] == 2, "color"] = "white"</code>.</p>
+
+<h3 id="2-numpy-arrays">2. Numpy Arrays</h3>
+
+<p>The other breaking change is that accessing the underlying numpy array will return a read-only view. Users typically get this array with <code class="language-plaintext highlighter-rouge">df.values</code> or <code class="language-plaintext highlighter-rouge">df.to_numpy()</code>. If changes are made to the numpy array that would also affect <code class="language-plaintext highlighter-rouge">df</code> since they reference the same object. In pandas 3.0, the returned array will be read-only to prevent this.</p>
+
+<h3 id="a-note-on-performance">A note on performance</h3>
+
+<p>In some cases copy-on-write will be more efficient. This is because previously, many methods in pandas performed “defensive copies”, meaning that they returned a copy of the data to safely avoid side effects. These are things like <code class="language-plaintext highlighter-rouge">reset_index</code>, <code class="language-plaintext highlighter-rouge">drop</code>, <code class="language-plaintext highlighter-rouge">astype</code>, etc. With copy-on-write, these methods no longer need to create a defensive copy, and can operate lazily, making your code run faster. However, some indexing operations will be slower because copies are performed when previously they weren’t.</p>
+
+<h2 id="how-to-prepare">How to prepare</h2>
+
+<p>The best way is to upgrade to the latest version of pandas (2.2 as of this writing) and run your code. This will raise warnings when pandas encounters code that would actively behave differently in pandas 3.0 (think chained assignment and read-only numpy arrays). Users can also enable additional warnings with <code class="language-plaintext highlighter-rouge">pd.options.mode.copy_on_write = "warn"</code> to see all operations that will change, though this might be too noisy to be useful.</p>
+
+<p>Once you’ve addressed the main warnings, you can actually migrate to copy-on-write early by running <code class="language-plaintext highlighter-rouge">pd.options.mode.copy_on_write = True</code>. With this enabled you can confidently migrate to pandas 3.0. See the <a href="https://pandas.pydata.org/docs/user_guide/copy_on_write.html#migrating-to-copy-on-write">pandas migration docs</a> for more details.</p>
+
+<h1 id="learning-more">Learning more</h1>
+
+<p>In addition to the pandas docs, I recommend exploring this three-part series by a pandas core developer, especially if you are interested in the technical details.</p>
+<ul>
+  <li><a href="https://towardsdatascience.com/deep-dive-into-pandas-copy-on-write-mode-part-i-26982e7408c6">Part 1</a></li>
+  <li><a href="https://towardsdatascience.com/deep-dive-into-pandas-copy-on-write-mode-part-ii-b023432a5334">Part 2</a></li>
+  <li><a href="https://towardsdatascience.com/deep-dive-into-pandas-copy-on-write-mode-part-iii-c024eaa16ed4">Part 3</a></li>
+</ul>]]></content><author><name>John Dwyer</name></author><category term="blog" /><category term="pandas" /><category term="data science" /><summary type="html"><![CDATA[Pandas is a core tool for data practitioners. However, when pandas 3.0 is released (currently planned for April 2024), many data science workflows will break and need to be updated. Change is hard, but read on to see that this is ultimately a good thing for pandas users.]]></summary></entry></feed>

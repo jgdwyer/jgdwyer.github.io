@@ -1,0 +1,498 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.24.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>What’s the deal with pandas 3.0? - Are You with Me Now?</title>
+<meta name="description" content="Pandas is a core tool for data practitioners. However, when pandas 3.0 is released (currently planned for April 2024), many data science workflows will break and need to be updated. Change is hard, but read on to see that this is ultimately a good thing for pandas users.">
+
+
+  <meta name="author" content="John Dwyer">
+  
+  <meta property="article:author" content="John Dwyer">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="en_US">
+<meta property="og:site_name" content="Are You with Me Now?">
+<meta property="og:title" content="What’s the deal with pandas 3.0?">
+<meta property="og:url" content="http://localhost:4000/blog/pandas-3.0/">
+
+
+  <meta property="og:description" content="Pandas is a core tool for data practitioners. However, when pandas 3.0 is released (currently planned for April 2024), many data science workflows will break and need to be updated. Change is hard, but read on to see that this is ultimately a good thing for pandas users.">
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2023-02-07T00:00:00-08:00">
+
+
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://localhost:4000/blog/pandas-3.0/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "John Dwyer",
+      "url": "http://localhost:4000/"
+    
+  }
+</script>
+
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+
+  <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Are You with Me Now? Feed">
+
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css"></noscript>
+
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--single">
+    <nav class="skip-links">
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          Are You with Me Now?
+          
+        </a>
+        <ul class="visible-links"></ul>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+
+  <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">John Dwyer</h3>
+    
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">Follow</button>
+    <ul class="author__urls social-icons">
+      
+
+      
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="What’s the deal with pandas 3.0?">
+    <meta itemprop="description" content="Pandas is a core tool for data practitioners. However, when pandas 3.0 is released (currently planned for April 2024), many data science workflows will break and need to be updated. Change is hard, but read on to see that this is ultimately a good thing for pandas users.">
+    <meta itemprop="datePublished" content="2023-02-07T00:00:00-08:00">
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">What’s the deal with pandas 3.0?
+</h1>
+          
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          4 minute read
+        
+      </span>
+    
+  </p>
+
+
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+        <p>Pandas is a core tool for data practitioners. However, when pandas 3.0 is released (currently planned for April 2024), many data science workflows will break and need to be updated. Change is hard, but read on to see that this is ultimately a good thing for pandas users.</p>
+
+<p>First, let’s review some existing behavior in pandas. Imagine that you have a dataframe that looks like:</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="n">pd</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="p">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s">"id"</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="s">"color"</span><span class="p">:</span> <span class="p">[</span><span class="s">"red"</span><span class="p">,</span> <span class="s">"green"</span><span class="p">,</span> <span class="s">"blue"</span><span class="p">]})</span>
+<span class="n">df</span>
+<span class="c1">#    id  color
+# 0   1    red
+# 1   2  green
+# 2   3   blue
+</span></code></pre></div></div>
+
+<p>Now let’s reference one column and update one of its values:</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">colors</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s">"color"</span><span class="p">]</span>
+<span class="n">colors</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="s">"white"</span>
+<span class="n">df</span>  <span class="c1"># What happens to df here?
+</span></code></pre></div></div>
+
+<p>Astute pandas users will recognize that this will update not only <code class="language-plaintext highlighter-rouge">colors</code>, but also <code class="language-plaintext highlighter-rouge">df</code> and print out:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">#    id  color
+# 0   1  white  # &lt;-- This may be unexpected
+# 1   2  green
+# 2   3   blue
+</span></code></pre></div></div>
+
+<p>The reason is that <code class="language-plaintext highlighter-rouge">colors</code> is a view of the original dataframe, meaning that it is still referencing the original <code class="language-plaintext highlighter-rouge">df</code>, so any changes to the view will update the underlying dataframe too.</p>
+
+<p>However, what will get printed in the following example?</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">colors</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s">"color"</span><span class="p">]</span>
+<span class="n">colors</span> <span class="o">=</span> <span class="n">colors</span> <span class="o">+</span> <span class="s">"ish"</span>  <span class="c1"># redish, greenish, blueish
+</span><span class="n">df</span>  <span class="c1"># What happens to df here?
+</span></code></pre></div></div>
+
+<p>In this case, we will get the original RGB dataframe back:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">#    id  color
+# 0   1    red
+# 1   2  green
+# 2   3   blue
+</span></code></pre></div></div>
+
+<p>This is because the <code class="language-plaintext highlighter-rouge">+ "ish"</code> returns a copy instead of a view. When a copy is generated and modified, the original dataframe does not get touched.</p>
+
+<h2 id="the-dreaded-settingwithcopywarning">The dreaded <code class="language-plaintext highlighter-rouge">SettingWithCopyWarning</code></h2>
+
+<p>In the first scenario pandas spits out a cryptic message: <code class="language-plaintext highlighter-rouge">SettingWithCopyWarning: A value is trying to be set on a copy of a slice from a DataFrame.</code> This warning has always filled me with a sense of unease that I was doing something wrong, but I didn’t know what exactly.</p>
+
+<p>It turns out that I’m not alone. Pandas has a rather complicated set of rules for determining whether operations return a copy or a view, and sometimes pandas itself is not sure, which is why the warning is sometimes mysterious. Moreover, in the case of chained indexing, assignment can behave in <a href="https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#why-does-assignment-fail-when-using-chained-indexing">unexpected ways</a>. If pandas itself doesn’t know and can get things wrongs, how are we humble data analysts, scientists, and engineers expected to keep track, especially for large projects.</p>
+
+<h2 id="copy-on-write">Copy-on-Write</h2>
+<p>The solution that the pandas development team came up with is called copy-on-write. Copy-on-write means that whenever a dataframe (or series) is derived from another it will behave as a copy. Any changes to derived dataframes will never affect the original dataframe. This behavior is much more predictable, and will prevent a lot of unintended side effects for pandas code. But there is no free lunch. Pandas is making two breaking changes to make this work.</p>
+
+<h3 id="1-chained-assignment">1. Chained Assignment</h3>
+
+<p>In pandas 3.0, chained assignment will always fail. Chained assignment is when you update an object through multiple indexing operations in serial:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">df</span><span class="p">[</span><span class="s">'color'</span><span class="p">][</span><span class="n">df</span><span class="p">[</span><span class="s">'id'</span><span class="p">]</span> <span class="o">==</span> <span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="s">"white"</span>
+<span class="n">df</span>
+<span class="c1">#    id  color
+# 0   1    red
+# 1   2  white
+# 2   3   blue
+</span></code></pre></div></div>
+
+<p>Today pandas raises the aforementioned <code class="language-plaintext highlighter-rouge">SettingWithCopyWarning</code>, but starting with pandas 3.0, this will straight up fail every time. Instead users should use <code class="language-plaintext highlighter-rouge">.loc</code> instead: <code class="language-plaintext highlighter-rouge">df.loc[df["id"] == 2, "color"] = "white"</code>.</p>
+
+<h3 id="2-numpy-arrays">2. Numpy Arrays</h3>
+
+<p>The other breaking change is that accessing the underlying numpy array will return a read-only view. Users typically get this array with <code class="language-plaintext highlighter-rouge">df.values</code> or <code class="language-plaintext highlighter-rouge">df.to_numpy()</code>. If changes are made to the numpy array that would also affect <code class="language-plaintext highlighter-rouge">df</code> since they reference the same object. In pandas 3.0, the returned array will be read-only to prevent this.</p>
+
+<h3 id="a-note-on-performance">A note on performance</h3>
+
+<p>In some cases copy-on-write will be more efficient. This is because previously, many methods in pandas performed “defensive copies”, meaning that they returned a copy of the data to safely avoid side effects. These are things like <code class="language-plaintext highlighter-rouge">reset_index</code>, <code class="language-plaintext highlighter-rouge">drop</code>, <code class="language-plaintext highlighter-rouge">astype</code>, etc. With copy-on-write, these methods no longer need to create a defensive copy, and can operate lazily, making your code run faster. However, some indexing operations will be slower because copies are performed when previously they weren’t.</p>
+
+<h2 id="how-to-prepare">How to prepare</h2>
+
+<p>The best way is to upgrade to the latest version of pandas (2.2 as of this writing) and run your code. This will raise warnings when pandas encounters code that would actively behave differently in pandas 3.0 (think chained assignment and read-only numpy arrays). Users can also enable additional warnings with <code class="language-plaintext highlighter-rouge">pd.options.mode.copy_on_write = "warn"</code> to see all operations that will change, though this might be too noisy to be useful.</p>
+
+<p>Once you’ve addressed the main warnings, you can actually migrate to copy-on-write early by running <code class="language-plaintext highlighter-rouge">pd.options.mode.copy_on_write = True</code>. With this enabled you can confidently migrate to pandas 3.0. See the <a href="https://pandas.pydata.org/docs/user_guide/copy_on_write.html#migrating-to-copy-on-write">pandas migration docs</a> for more details.</p>
+
+<h1 id="learning-more">Learning more</h1>
+
+<p>In addition to the pandas docs, I recommend exploring this three-part series by a pandas core developer, especially if you are interested in the technical details.</p>
+<ul>
+  <li><a href="https://towardsdatascience.com/deep-dive-into-pandas-copy-on-write-mode-part-i-26982e7408c6">Part 1</a></li>
+  <li><a href="https://towardsdatascience.com/deep-dive-into-pandas-copy-on-write-mode-part-ii-b023432a5334">Part 2</a></li>
+  <li><a href="https://towardsdatascience.com/deep-dive-into-pandas-copy-on-write-mode-part-iii-c024eaa16ed4">Part 3</a></li>
+</ul>
+
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/tags/#data-science" class="page__taxonomy-item" rel="tag">data science</a><span class="sep">, </span>
+    
+      <a href="/tags/#pandas" class="page__taxonomy-item" rel="tag">pandas</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> Categories: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/categories/#blog" class="page__taxonomy-item" rel="tag">blog</a>
+    
+    </span>
+  </p>
+
+
+        
+
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2023-02-07T00:00:00-08:00">February 7, 2023</time></p>
+
+
+      </footer>
+
+      <section class="page__share">
+  
+
+  <a href="https://twitter.com/intent/tweet?text=What%27s+the+deal+with+pandas+3.0%3F%20http%3A%2F%2Flocalhost%3A4000%2Fblog%2Fpandas-3.0%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A4000%2Fblog%2Fpandas-3.0%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Flocalhost%3A4000%2Fblog%2Fpandas-3.0%2F" class="btn btn--linkedin" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on LinkedIn"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+</section>
+
+
+      
+    </div>
+
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      <h4 class="page__related-title">You May Also Enjoy</h4>
+      <div class="grid__wrapper">
+        
+          
+            
+      </div>
+    </div>
+  
+</div>
+
+    </div>
+
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+
+    
+      <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+    
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2024 John Dwyer. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+
+
+
+
+
+
+  </body>
+</html>
